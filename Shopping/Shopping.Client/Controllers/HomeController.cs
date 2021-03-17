@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Shopping.Client.Data;
+
 
 namespace Shopping.Client.Controllers
 {
@@ -22,13 +24,17 @@ namespace Shopping.Client.Controllers
             _httpClient = httpClientFactory.CreateClient("ShoppingAPIClient");
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var response = await _httpClient.GetAsync("/product");
-            var content = await response.Content.ReadAsStringAsync();
-            var productList = JsonConvert.DeserializeObject<IEnumerable<Product>>(content);
+        // public async Task<IActionResult> Index()
+        // {
+        //     var response = await _httpClient.GetAsync("/product");
+        //     var content = await response.Content.ReadAsStringAsync();
+        //     var productList = JsonConvert.DeserializeObject<IEnumerable<Product>>(content);
 
-            return View(productList);
+        //     return View(productList);
+        // }
+
+        public IActionResult Index(){
+            return View(ProductContext.Products);
         }
 
         public IActionResult Privacy()
